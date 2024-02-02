@@ -1,5 +1,5 @@
 // use libp2p::swarm::behaviour::NetworkBehaviour;
-use libp2p::{mdns, swarm::{NetworkBehaviour, behaviour}, floodsub::Floodsub};
+use libp2p::{mdns, swarm::{NetworkBehaviour, behaviour}, floodsub::Floodsub, gossipsub};
 use serde::{Serialize, Deserialize};
 use tokio::sync::mpsc;
 
@@ -41,10 +41,8 @@ pub struct ListResponse {
 
 #[derive(NetworkBehaviour)]
 pub struct RecipeBehaviour {
-    floodsub: Floodsub,
+    floodsub: gossipsub::Behaviour,
     mdns: mdns::tokio::Behaviour,
-    // #[behaviour(ignore)]
-    // resp_sender: mpsc::UnboundedSender<ListResponse>,
 }
 
 
